@@ -1,17 +1,21 @@
-name: Reusable Workflow
+name: My Starter Workflow
 
 on:
-  workflow_call:
-    inputs:
-      node:
-        required: true
-        type: string
+  workflow_dispatch:
 
 jobs:
-  setup-node:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Set up Node.js ${{ inputs.node }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ inputs.node }}
+      - uses: actions/checkout@v4
+
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy to your project.
+
+  call-reusable-workflow:
+    uses: ./.github/workflows/reusable-workflow.yml
+    with:
+      node: 14
