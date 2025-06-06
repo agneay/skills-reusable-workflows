@@ -1,16 +1,17 @@
-name: My Starter Workflow
+name: Reusable Workflow
 
 on:
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      node:
+        required: true
+        type: string
 
 jobs:
-  build:
+  setup-node:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy to your project.
+      - name: Set up Node.js ${{ inputs.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node }}
